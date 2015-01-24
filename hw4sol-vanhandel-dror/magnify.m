@@ -1,7 +1,7 @@
 function magnify(filename_in, filename_out, m0, m1, m2, m3, m4)
     d = 4;
     src = VideoReader(filename_in);
-    video = read(src, [ 1, 40]);
+    video = read(src, [ 1, size(m0,2)]);
 
     % Save the dimensions of the video
     frames = size(video,4);
@@ -23,6 +23,8 @@ function magnify(filename_in, filename_out, m0, m1, m2, m3, m4)
 
         % Enhance the chosen frequencies
         a = temporal_filter(spatial_time_m, M{i});
+        %a = spatial_time_m;
+        
         
         % replace in-place
         video_pyramid{i} = reshape(a,size(video_pyramid{i},1), ...

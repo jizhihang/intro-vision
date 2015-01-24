@@ -19,7 +19,9 @@ function construct_video_from_pyramid(pyramid,filename_out, FrameRate)
         end;
 
         I_after = L_pyramid_decode(L,a);
-        writeVideo(writer, im2frame(im2uint8(subplus(I_after))));
+        %TODO  (OT & WALTER) - mabye 'abs' insteat of 'subplus'
+        %writeVideo(writer, im2frame(im2uint8(subplus(I_after))));
+        writeVideo(writer, im2frame(im2uint8(abs(I_after))));
     end;
     close(writer);    
 end
