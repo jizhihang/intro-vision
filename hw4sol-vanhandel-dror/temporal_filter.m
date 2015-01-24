@@ -22,15 +22,15 @@ function [ filtered_matrix ] = temporal_filter (spatial_time_matrix, frequency_m
     % since fft of a matrix returns the fft of every column of the matrix
 
     pixels = size(spatial_time_matrix,1);
-    NUM_PARALLEL_COLS = floor(pixels/ floor(pixels/5e4));
-    filtered_matrix = zeros(size(spatial_time_matrix),'uint8');
+    NUM_PARALLEL_COLS = floor(pixels/ ceil(pixels/5e4));
+    filtered_matrix = zeros(size(spatial_time_matrix),'double');%'uint8');
     mask = ones(NUM_PARALLEL_COLS,1) *frequency_mask;
 
 
     for i = 1:floor(pixels/NUM_PARALLEL_COLS)
         a = (i-1) * NUM_PARALLEL_COLS + 1;
         b = i * NUM_PARALLEL_COLS;
-        fprintf('%l-%l of %d\n',a,b, pixels);
+        fprintf('%g-%g of %d\n',a,b, pixels);
         spatial_freq_matrix = fft(spatial_time_matrix(a:b,:),[],2);
         filtered_matrix(a:b,:) = abs(ifft(spatial_freq_matrix .* mask,[], 2));
     end
