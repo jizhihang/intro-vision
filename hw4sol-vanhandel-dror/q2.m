@@ -1,10 +1,21 @@
 close all;
 clear all;
 
-m= ones(1, 300);
-m(2:34) = 10;
-%m= [1 ones(1,4) ];
-o =  ones(size(m));
-tic
-magnify('baby.mp4','pbaby.avi', o,o,m,m,m);
-toc
+fprintf('starting camera\n');
+run_movie_camera;
+fprintf('ended camera\n');
+clear all;
+
+fprintf('starting baby\n');
+run_movie_baby;
+fprintf('ended baby\n');
+clear all;
+
+fprintf('starting face\n');
+run_movie_face;
+fprintf('ending face\n');
+clear all;
+
+fprintf('starting merkel\n');
+run_movie_merkel;
+fprintf('ending merkel\n');

@@ -1,0 +1,14 @@
+close all;
+clear all;
+fprintf(    
+run_movie_camera;
+run_movie_baby;
+run_movie_face;
+run_movie_merkel;
+
+
+
+
+
+
+
