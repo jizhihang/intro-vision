@@ -14,7 +14,7 @@ function construct_video_from_pyramid(pyramid,pyramid_frame_sizes,filename_out, 
     % preallocate memory
     L = cell(1,d+1); % Preallocate the pyramid
         
-    for frame_idx=1:size(pyramid{1},4) % for every frame in the video
+    for frame_idx=1:size(pyramid{1},2) % for every frame in the video
         for level=1:d+1
             % L{level} = pyramid{level}(:,:,:,frame_idx);
             frame_size = prod(pyramid_frame_sizes{level});
