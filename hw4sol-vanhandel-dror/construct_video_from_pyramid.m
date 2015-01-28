@@ -1,4 +1,4 @@
-function construct_video_from_pyramid(pyramid,pyramid_frame_sizes,filename_out, FrameRate)
+function [video_out] = construct_video_from_pyramid(pyramid,pyramid_frame_sizes)
     % takes a cell arrray of size 5, where each cell is a video stream
     % of the respective level of the Laplacian pyramid, reconstructs
     % the image at every frame, and writes the reconstructed video to file.
@@ -7,13 +7,13 @@ function construct_video_from_pyramid(pyramid,pyramid_frame_sizes,filename_out, 
     a = 0.6;
     d = 4;
 
-    writer = VideoWriter(filename_out);
-    writer.FrameRate = FrameRate;
-    open(writer);
+%     writer = VideoWriter(filename_out);
+%     writer.FrameRate = FrameRate;
+%     open(writer);
     
     % preallocate memory
     L = cell(1,d+1); % Preallocate the pyramid
-        
+    video_out = zeros( [pyramid_frame_sizes{1},size(pyramid{1},2)] , 'uint8');
     for frame_idx=1:size(pyramid{1},2) % for every frame in the video
         for level=1:d+1
             % L{level} = pyramid{level}(:,:,:,frame_idx);
@@ -25,10 +25,10 @@ function construct_video_from_pyramid(pyramid,pyramid_frame_sizes,filename_out, 
                    pyramid_frame_sizes{level}(3));
         end;
 
-        I_after = L_pyramid_decode(L,a);
-        %TODO  (OT & WALTER) - mabye 'abs' insteat of 'subplus'
-        writeVideo(writer, im2frame(im2uint8(uint8(subplus(255*I_after)))));
-        %writeVideo(writer, im2frame(im2uint8(abs(I_after))));
+        I_after = im2uint8(abs(L_pyramid_decode(L,a)));
+        video_out(:,:,:,frame_idx) = I_after;
+        %writeVideo(writer, im2frame(im2uint8(uint8(subplus(255*I_after)))));
     end;
-    close(writer);    
+    %close(writer);    
+    
 end
